@@ -26,13 +26,13 @@ namespace IoTHubNet46
 
         private static DeviceClient CreateDeviceClient()
         {
-            var conString = ConfigurationManager.AppSettings["IotHub.ConnectionString"];
-            var protocol = ConfigurationManager.AppSettings["IotHub.Protocol"];
-            var timeout = ConfigurationManager.AppSettings["IotHub.OperationTimeoutMs"];
+            var conString = "conn string here"; // ConfigurationManager.AppSettings["IotHub.ConnectionString"];
+            var protocol = "mqtt";//ConfigurationManager.AppSettings["IotHub.Protocol"];
+            var timeout = "1";// ConfigurationManager.AppSettings["IotHub.OperationTimeoutMs"];
 
             var deviceClient = DeviceClient.CreateFromConnectionString(conString, GetTransportType(protocol));
             deviceClient.OperationTimeoutInMilliseconds = uint.Parse(timeout);
-            deviceClient.RetryPolicy = RetryPolicyType.No_Retry;
+            deviceClient.SetRetryPolicy(new MyRetryPolicy());
 
             return deviceClient;
         }
@@ -54,6 +54,7 @@ namespace IoTHubNet46
 
         private static async Task RunTest(DeviceClient dc)
         {
+            int count = 0;
             while (true)
             {
                 try
@@ -66,8 +67,13 @@ namespace IoTHubNet46
                 {
                     Console.WriteLine(ex.ToString());
                 }
+                count++;
 
-                await Task.Delay(500);
+                if(count % 10000 == 0)
+                {
+                    GC.Collect(2);
+                }
+                // await Task.Delay(500);
             }
         }
 

@@ -1,0 +1,71 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2005
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoTHubNet46", "IoTHubNet46\IoTHubNet46.csproj", "{E6486DD7-2D37-4E29-BBB2-BCF80055C637}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Azure.Devices.Client", "..\azure-iot-sdk-csharp\device\Microsoft.Azure.Devices.Client\Microsoft.Azure.Devices.Client.csproj", "{836B1FB6-70F0-4C7E-AA35-519C2F83AA81}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Microsoft.Azure.Devices.Client.Shared", "..\azure-iot-sdk-csharp\device\Microsoft.Azure.Devices.Client.Shared\Microsoft.Azure.Devices.Client.Shared.shproj", "{26BBDF47-7559-4869-BD6F-A32FE21F3F25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Azure.Devices.Shared", "..\azure-iot-sdk-csharp\shared\Microsoft.Azure.Devices.Shared\Microsoft.Azure.Devices.Shared.csproj", "{835230FC-8D03-4CD1-8845-5A9D1B0B837D}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\azure-iot-sdk-csharp\device\Microsoft.Azure.Devices.Client.Shared\Microsoft.Azure.Devices.Client.Shared.projitems*{26bbdf47-7559-4869-bd6f-a32fe21f3f25}*SharedItemsImports = 13
+		..\azure-iot-sdk-csharp\device\Microsoft.Azure.Devices.Client.Shared\Microsoft.Azure.Devices.Client.Shared.projitems*{836b1fb6-70f0-4c7e-aa35-519c2f83aa81}*SharedItemsImports = 4
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release_Delay_Sign|Any CPU = Release_Delay_Sign|Any CPU
+		Release_Delay_Sign|x86 = Release_Delay_Sign|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E6486DD7-2D37-4E29-BBB2-BCF80055C637}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6486DD7-2D37-4E29-BBB2-BCF80055C637}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6486DD7-2D37-4E29-BBB2-BCF80055C637}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E6486DD7-2D37-4E29-BBB2-BCF80055C637}.Debug|x86.Build.0 = Debug|Any CPU
+		{E6486DD7-2D37-4E29-BBB2-BCF80055C637}.Release_Delay_Sign|Any CPU.ActiveCfg = Release|Any CPU
+		{E6486DD7-2D37-4E29-BBB2-BCF80055C637}.Release_Delay_Sign|Any CPU.Build.0 = Release|Any CPU
+		{E6486DD7-2D37-4E29-BBB2-BCF80055C637}.Release_Delay_Sign|x86.ActiveCfg = Release|Any CPU
+		{E6486DD7-2D37-4E29-BBB2-BCF80055C637}.Release_Delay_Sign|x86.Build.0 = Release|Any CPU
+		{E6486DD7-2D37-4E29-BBB2-BCF80055C637}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6486DD7-2D37-4E29-BBB2-BCF80055C637}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6486DD7-2D37-4E29-BBB2-BCF80055C637}.Release|x86.ActiveCfg = Release|Any CPU
+		{E6486DD7-2D37-4E29-BBB2-BCF80055C637}.Release|x86.Build.0 = Release|Any CPU
+		{836B1FB6-70F0-4C7E-AA35-519C2F83AA81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{836B1FB6-70F0-4C7E-AA35-519C2F83AA81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{836B1FB6-70F0-4C7E-AA35-519C2F83AA81}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{836B1FB6-70F0-4C7E-AA35-519C2F83AA81}.Debug|x86.Build.0 = Debug|Any CPU
+		{836B1FB6-70F0-4C7E-AA35-519C2F83AA81}.Release_Delay_Sign|Any CPU.ActiveCfg = Release_Delay_Sign|Any CPU
+		{836B1FB6-70F0-4C7E-AA35-519C2F83AA81}.Release_Delay_Sign|Any CPU.Build.0 = Release_Delay_Sign|Any CPU
+		{836B1FB6-70F0-4C7E-AA35-519C2F83AA81}.Release_Delay_Sign|x86.ActiveCfg = Release_Delay_Sign|Any CPU
+		{836B1FB6-70F0-4C7E-AA35-519C2F83AA81}.Release_Delay_Sign|x86.Build.0 = Release_Delay_Sign|Any CPU
+		{836B1FB6-70F0-4C7E-AA35-519C2F83AA81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{836B1FB6-70F0-4C7E-AA35-519C2F83AA81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{836B1FB6-70F0-4C7E-AA35-519C2F83AA81}.Release|x86.ActiveCfg = Release|Any CPU
+		{836B1FB6-70F0-4C7E-AA35-519C2F83AA81}.Release|x86.Build.0 = Release|Any CPU
+		{835230FC-8D03-4CD1-8845-5A9D1B0B837D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{835230FC-8D03-4CD1-8845-5A9D1B0B837D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{835230FC-8D03-4CD1-8845-5A9D1B0B837D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{835230FC-8D03-4CD1-8845-5A9D1B0B837D}.Debug|x86.Build.0 = Debug|Any CPU
+		{835230FC-8D03-4CD1-8845-5A9D1B0B837D}.Release_Delay_Sign|Any CPU.ActiveCfg = Release_Delay_Sign|Any CPU
+		{835230FC-8D03-4CD1-8845-5A9D1B0B837D}.Release_Delay_Sign|Any CPU.Build.0 = Release_Delay_Sign|Any CPU
+		{835230FC-8D03-4CD1-8845-5A9D1B0B837D}.Release_Delay_Sign|x86.ActiveCfg = Release_Delay_Sign|Any CPU
+		{835230FC-8D03-4CD1-8845-5A9D1B0B837D}.Release_Delay_Sign|x86.Build.0 = Release_Delay_Sign|Any CPU
+		{835230FC-8D03-4CD1-8845-5A9D1B0B837D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{835230FC-8D03-4CD1-8845-5A9D1B0B837D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{835230FC-8D03-4CD1-8845-5A9D1B0B837D}.Release|x86.ActiveCfg = Release|Any CPU
+		{835230FC-8D03-4CD1-8845-5A9D1B0B837D}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2A240898-A040-494F-9CF5-614A496815A3}
+	EndGlobalSection
+EndGlobal
