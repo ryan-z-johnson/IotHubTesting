@@ -26,8 +26,8 @@ namespace IoTHubNet46
 
         private static DeviceClient CreateDeviceClient()
         {
-            var conString = "conn string here"; // ConfigurationManager.AppSettings["IotHub.ConnectionString"];
-            var protocol = "mqtt";//ConfigurationManager.AppSettings["IotHub.Protocol"];
+            var conString = "<connection string>"; // ConfigurationManager.AppSettings["IotHub.ConnectionString"];
+            var protocol = "mqtt_websock";//ConfigurationManager.AppSettings["IotHub.Protocol"];
             var timeout = "1";// ConfigurationManager.AppSettings["IotHub.OperationTimeoutMs"];
 
             var deviceClient = DeviceClient.CreateFromConnectionString(conString, GetTransportType(protocol));
@@ -71,7 +71,7 @@ namespace IoTHubNet46
 
                 if(count % 10000 == 0)
                 {
-                    GC.Collect(2);
+                    // GC.Collect(2);
                 }
                 // await Task.Delay(500);
             }
