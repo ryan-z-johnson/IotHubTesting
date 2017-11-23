@@ -9,6 +9,7 @@ namespace IoTHubNet46
 {
     class Program
     {
+        private static string proto;
         private static TransportType GetTransportType(string protocol)
         {
             switch (protocol.ToLowerInvariant())
@@ -26,14 +27,15 @@ namespace IoTHubNet46
 
         private static DeviceClient CreateDeviceClient()
         {
-            var conString = "<connection string>"; // ConfigurationManager.AppSettings["IotHub.ConnectionString"];
+            var conString = ""; // ConfigurationManager.AppSettings["IotHub.ConnectionString"];
             var protocol = "mqtt_websock";//ConfigurationManager.AppSettings["IotHub.Protocol"];
             var timeout = "1";// ConfigurationManager.AppSettings["IotHub.OperationTimeoutMs"];
 
+            proto = GetTransportType(protocol).ToString();
             var deviceClient = DeviceClient.CreateFromConnectionString(conString, GetTransportType(protocol));
             deviceClient.OperationTimeoutInMilliseconds = uint.Parse(timeout);
-            deviceClient.SetRetryPolicy(new MyRetryPolicy());
-
+            //deviceClient.SetRetryPolicy(new MyRetryPolicy());
+            deviceClient.RetryPolicy = RetryPolicyType.No_Retry;
             return deviceClient;
         }
 
@@ -55,25 +57,31 @@ namespace IoTHubNet46
         private static async Task RunTest(DeviceClient dc)
         {
             int count = 0;
-            while (true)
+            var msg = CreateAzureMessage();
+            bool stop = false;
+            while (!stop)
             {
                 try
                 {
-                    Console.WriteLine("Send");
-                    var msg = CreateAzureMessage();
+                    // Console.WriteLine("Send");
                     await dc.SendEventBatchAsync(msg);
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.ToString());
+                   // Console.WriteLine(ex.ToString());
                 }
                 count++;
 
-                if(count % 10000 == 0)
+                if(count % 1000 == 0)
                 {
-                    // GC.Collect(2);
+                    GC.Collect(2);
+                }
+                if(count % 50 == 0)
+                {
+                    Console.WriteLine(count + " " + proto);
                 }
                 // await Task.Delay(500);
+                //stop = true;
             }
         }
 
@@ -82,6 +90,7 @@ namespace IoTHubNet46
         {
             var dv = CreateDeviceClient();
             RunTest(dv).Wait();
+            Console.ReadLine();
         }
     }
 }

@@ -187,7 +187,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\azure-iot-sdk-csharp\device\Microsoft.Azure.Devices.Client\Microsoft.Azure.Devices.Client.csproj">
+    <ProjectReference Include="..\..\azure-iot-sdk-csharp\azure-iot-sdk-csharp\device\Microsoft.Azure.Devices.Client\Microsoft.Azure.Devices.Client.csproj">
       <Project>{836b1fb6-70f0-4c7e-aa35-519c2f83aa81}</Project>
       <Name>Microsoft.Azure.Devices.Client</Name>
     </ProjectReference>

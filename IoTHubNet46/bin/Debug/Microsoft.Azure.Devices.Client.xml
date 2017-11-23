@@ -496,10 +496,24 @@
             <summary>
             Represents a retry policy that performs a specified number of retries, using a randomized exponential back off scheme to determine the interval between retries.
             </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Devices.Client.ExponentialBackoff.#ctor(System.Int32,System.TimeSpan,System.TimeSpan,System.TimeSpan)">
+            <summary>
+            Creates an instance of ExponentialBackoff.
+            </summary>
             <param name="retryCount">The maximum number of retry attempts.</param>
-            <param name="minBackoff">The minimum backoff time</param>
-            <param name="maxBackoff">The maximum backoff time.</param>
+            <param name="minBackoff">The minimum back-off time</param>
+            <param name="maxBackoff">The maximum back-off time.</param>
             <param name="deltaBackoff">The value that will be used to calculate a random delta in the exponential delay between retries.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Devices.Client.ExponentialBackoff.ShouldRetry(System.Int32,System.Exception,System.TimeSpan@)">
+            <summary>
+            Returns true if, based on the parameters the operation should be retried.
+            </summary>
+            <param name="currentRetryCount">How many times the operation has been retried.</param>
+            <param name="lastException">Operation exception.</param>
+            <param name="retryInterval">Next retry should be performed after this time interval.</param>
+            <returns>True if the operation should be retried, false otherwise.</returns>
         </member>
         <member name="T:Microsoft.Azure.Devices.Client.TransientFaultHandling.RetryStrategyWrapper">
             <summary>
@@ -512,7 +526,7 @@
             to retry only the generic version of the <see cref="T:System.Threading.Tasks.Task" />.
             </summary>
         </member>
-        <member name="M:Microsoft.Azure.Devices.Client.TransientFaultHandling.AsyncExecution.StartAsGenericTask(System.Func{System.Threading.Tasks.Task})">
+        <member name="M:Microsoft.Azure.Devices.Client.TransientFaultHandling.AsyncExecution.StartAsGenericTask(System.Func{System.Threading.Tasks.Task},System.Threading.CancellationToken)">
             <summary>
             Wraps the non-generic <see cref="T:System.Threading.Tasks.Task" /> into a generic <see cref="T:System.Threading.Tasks.Task" />.
             </summary>
@@ -1851,6 +1865,61 @@
             <param name="iotHubConnectionStringBuilder">Instance to populate.</param>
             <returns>The populated <see cref="T:Microsoft.Azure.Devices.Client.IotHubConnectionStringBuilder"/> instance.</returns>
         </member>
+        <member name="T:Microsoft.Azure.Devices.Client.DeviceAuthenticationWithTokenRefresh">
+            <summary>
+            Authentication method that uses a shared access signature token and allows for token refresh. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Devices.Client.DeviceAuthenticationWithTokenRefresh.DeviceId">
+            <summary>
+            Gets the DeviceID.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Devices.Client.DeviceAuthenticationWithTokenRefresh.ExpiresOn">
+            <summary>
+            Gets a snapshot of the UTC token expiry time.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Devices.Client.DeviceAuthenticationWithTokenRefresh.RefreshesOn">
+            <summary>
+            Gets a snapshot of the UTC token refresh time.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Devices.Client.DeviceAuthenticationWithTokenRefresh.IsExpiring">
+            <summary>
+            Gets a snapshot expiry state.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Devices.Client.DeviceAuthenticationWithTokenRefresh.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Azure.Devices.Client.DeviceAuthenticationWithTokenRefresh"/> class using default
+            TTL and TTL buffer time settings.
+            </summary>
+            <param name="deviceId">Device Identifier.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Devices.Client.DeviceAuthenticationWithTokenRefresh.#ctor(System.String,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Azure.Devices.Client.DeviceAuthenticationWithTokenRefresh"/> class.
+            </summary>
+            <param name="deviceId">Device Identifier.</param>
+            <param name="suggestedTimeToLiveSeconds">Token time to live suggested value. The implementations of this abstract
+            may choose to ignore this value.</param>
+            <param name="timeBufferPercentage">Time buffer before expiry when the token should be renewed expressed as 
+            a percentage of the time to live.</param>
+        </member>
+        <member name="M:Microsoft.Azure.Devices.Client.DeviceAuthenticationWithTokenRefresh.GetTokenAsync(System.String)">
+            <summary>
+            Gets a snapshot of the security token associated with the device. This call is thread-safe.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.Devices.Client.DeviceAuthenticationWithTokenRefresh.Populate(Microsoft.Azure.Devices.Client.IotHubConnectionStringBuilder)">
+            <summary>
+            Populates an <see cref="T:Microsoft.Azure.Devices.Client.IotHubConnectionStringBuilder"/> instance based on a snapshot of the properties of 
+            the current instance.
+            </summary>
+            <param name="iotHubConnectionStringBuilder">Instance to populate.</param>
+            <returns>The populated <see cref="T:Microsoft.Azure.Devices.Client.IotHubConnectionStringBuilder"/> instance.</returns>
+        </member>
         <member name="T:Microsoft.Azure.Devices.Client.DesiredPropertyUpdateCallback">
             <summary>
             Delegate for desired property update callbacks.  This will be called
@@ -1871,9 +1940,20 @@
             Contains methods that a device can use to send messages to and receive from the service.
             </summary>
         </member>
+        <member name="F:Microsoft.Azure.Devices.Client.DeviceClient._diagnosticSamplingPercentage">
+            <summary> 
+            Diagnostic sampling percentage value, [0-100];  
+            0 means no message will carry on diag info 
+            </summary>
+        </member>
         <member name="P:Microsoft.Azure.Devices.Client.DeviceClient.OperationTimeoutInMilliseconds">
             <summary>
             Stores the timeout used in the operation retries.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.Devices.Client.DeviceClient.ProductInfo">
+            <summary>
+            Stores custom product information that will be appended to the user agent string that is sent to IoT Hub.
             </summary>
         </member>
         <member name="P:Microsoft.Azure.Devices.Client.DeviceClient.RetryPolicy">
@@ -1957,16 +2037,6 @@
             <param name="transportType">Specifies whether Amqp or Http transport is used</param>
             <returns>DeviceClient</returns>
         </member>
-        <member name="M:Microsoft.Azure.Devices.Client.DeviceClient.CreateFromConnectionString(System.String,Microsoft.Azure.Devices.Client.TransportType,Microsoft.Azure.Devices.Client.IDeviceClientPipelineBuilder)">
-            <summary>
-            Create DeviceClient from the specified connection string using the specified transport type
-            (PCL) Only Http transport is allowed
-            </summary>
-            <param name="connectionString">Connection string for the IoT hub (including DeviceId)</param>
-            <param name="transportType">Specifies whether Amqp or Http transport is used</param>
-            <param name="pipelineBuilder">Device client pipeline builder</param>
-            <returns>DeviceClient</returns>
-        </member>
         <member name="M:Microsoft.Azure.Devices.Client.DeviceClient.CreateFromConnectionString(System.String,System.String,Microsoft.Azure.Devices.Client.TransportType)">
             <summary>
             Create DeviceClient from the specified connection string using the specified transport type
@@ -1982,15 +2052,6 @@
             </summary>
             <param name="connectionString">Connection string for the IoT hub (with DeviceId)</param>
             <param name="transportSettings">Prioritized list of transports and their settings</param>
-            <returns>DeviceClient</returns>
-        </member>
-        <member name="M:Microsoft.Azure.Devices.Client.DeviceClient.CreateFromConnectionString(System.String,Microsoft.Azure.Devices.Client.ITransportSettings[],Microsoft.Azure.Devices.Client.IDeviceClientPipelineBuilder)">
-            <summary>
-            Create DeviceClient from the specified connection string using a prioritized list of transports
-            </summary>
-            <param name="connectionString">Connection string for the IoT hub (with DeviceId)</param>
-            <param name="transportSettings">Prioritized list of transports and their settings</param>
-            <param name="pipelineBuilder">Device client pipeline builder</param>
             <returns>DeviceClient</returns>
         </member>
         <member name="M:Microsoft.Azure.Devices.Client.DeviceClient.CreateFromConnectionString(System.String,System.String,Microsoft.Azure.Devices.Client.ITransportSettings[])">
@@ -2110,9 +2171,9 @@
         </member>
         <member name="M:Microsoft.Azure.Devices.Client.DeviceClient.SetConnectionStatusChangesHandler(Microsoft.Azure.Devices.Client.ConnectionStatusChangesHandler)">
             <summary>
-            Registers a new delgate for the connection status changed callback. If a delegate is already associated, 
+            Registers a new delegate for the connection status changed callback. If a delegate is already associated, 
             it will be replaced with the new delegate.
-            <param name="statusChangedCallback">The name of the method to associate with the delegate.</param>
+            <param name="statusChangesHandler">The name of the method to associate with the delegate.</param>
             </summary>
         </member>
         <member name="M:Microsoft.Azure.Devices.Client.DeviceClient.OnConnectionOpened(System.Object,Microsoft.Azure.Devices.Client.Transport.ConnectionEventArgs)">
